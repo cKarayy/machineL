@@ -67,6 +67,36 @@
             color: #FFED8C; /* Warna teks menjadi FFED8C */
             text-align: center;
             padding: 20px;
+            overflow-x: hidden;
+            margin :0;
+            padding : 0;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 70px; /* Memberikan jarak antar input-group */
+        }
+
+        .input-row {
+            margin-top: 85px; /* Memberikan jarak antara dailySteps dan distanceMethod */
+        }
+
+        .input-group1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 20px; /* Memberikan jarak antar input-group */
+        }
+
+        /* Mengatur input dan select agar berada sejajar */
+        .input-group1 input, .input-group1 select {
+            width: 100px; /* Tentukan lebar kotak input dan select */
+            height: 30px; /* Menyesuaikan tinggi input */
+            font-size: 16px; /* Ukuran font */
+            border-radius: 10px;
+            background-color: #D9D9D9;
         }
 
         /* Perbesar ukuran font untuk Post No Bills Colombo */
@@ -86,6 +116,7 @@
             height: 100%; /* Mengatur background logo agar mengisi layar */
             z-index: -1;
             opacity: 0.5;
+            overflow: hidden
         }
 
         h1 {
@@ -102,13 +133,14 @@
             height: 4px;
             background: yellow; /* Garis bawah tetap kuning */
             margin: 0 auto 20px;
-            position: absolute;
+            position: sticky;
             top: 120px; /* Menyesuaikan posisi garis dengan judul */
             z-index: 1; /* Garis berada di atas logo */
         }
 
         .container {
             max-width: 1000px;
+            overflow: auto;
             margin: 0 auto;
             padding: 20px;
             border-radius: 10px;
@@ -153,21 +185,21 @@
         }
 
         .input-group select#age {
-    width: 5px; /* Perkecil lebar kotak */
-    height: 30px; /* Biarkan tinggi menyesuaikan konten */
-    font-size: 14px; /* Sesuaikan ukuran font */
-    border-radius: 10px;
-    background-color: #D9D9D9;
-    text-align: center; /* Agar teks terlihat lebih rapi */
-}
+            width: 10px !important; /* Mengatur lebar menjadi 70px */
+            height: 30px; /* Biarkan tinggi menyesuaikan konten */
+            font-size: 14px; /* Ukuran font yang sesuai */
+            border-radius: 10px; /* Sudut membulat untuk estetik */
+            background-color: #D9D9D9; /* Warna latar belakang */
+            text-align: center; /* Agar teks terlihat lebih rapi */
+        }
 
-.input-group input#dailySteps {
-    width: 15%; /* Sesuaikan ukuran */
-    height: 50%; /* Biarkan tinggi menyesuaikan konten */
-    font-size: 16px; /* Ukuran font tetap */
-    border-radius: 10px;
-    background-color: #D9D9D9;
-}
+        .input-group input#dailySteps {
+            width: 15%; /* Sesuaikan ukuran */
+            height: 50%; /* Biarkan tinggi menyesuaikan konten */
+            font-size: 16px; /* Ukuran font tetap */
+            border-radius: 10px;
+            background-color: #D9D9D9;
+        }
 
         .input-group select, .input-group input {
             width: 70%; 
@@ -193,11 +225,13 @@
         }
 
         .centerr {
-        display: flex; /* Tetap gunakan flex untuk tata letak horizontal */
-        justify-content: flex-start; /* Atur elemen ke kiri */
-        align-items: center; /* Vertikal sejajar */
-        gap: 20px; /* Jarak antar elemen */
-    }
+            display: flex; /* Tetap gunakan flex untuk tata letak horizontal */
+            align-items: center; /* Vertikal sejajar */
+            gap: 20px; /* Jarak antar elemen */
+            width: 500px; 
+            height: 100px; 
+        }
+
         .systolic-group, .diastolic-group {
             display: flex;
             flex-direction: column;
@@ -218,7 +252,13 @@
             cursor: pointer;
             width: 80%;
             height: 40%;
-    }
+        }
+
+        .container1 {
+            display: flex;
+            align-items: center; /* Vertikal sejajar */
+        }
+
         .btn {
             margin-top: 20px;
             padding: 10px 20px;
@@ -230,8 +270,8 @@
             font-size:1.3rem ;
             border-radius: 5px;
             cursor: pointer;
-            width: 48%;
-            height: 70%;
+            width: 100%;
+            height: 80%;
         }
 
         .btn:hover {
@@ -240,7 +280,8 @@
 
         .result {
             margin-top: 20px;
-            padding: 20px;
+            margin-left: 15px;
+            padding: 10px;
             background: white;
             color: black;
             font-size: 1.2rem;
@@ -249,6 +290,7 @@
             display: none;
             position: relative; /* Menjaga agar elemen result tidak mengganggu garis bawah */
             z-index: 1; /* Pastikan result berada di bawah garis */
+            white-space: nowrap;
         }
 
         .radio-group {
@@ -295,6 +337,10 @@
             font-weight: bold;
         }
 
+        #restartBtn {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -330,6 +376,14 @@
                 <input id="sleepQuality" type="range" min="0" max="100" value="0" oninput="updateValue('sleepQuality', this.value)">
                 <span id="sleepQualityValue">0</span>
             </div>
+
+            <div class="input-group1">
+                <div class="input-row1">
+                    <label for="kValue">K Value</label>
+                    <span>:</span>
+                    <input id="kValue" type="number" min="1" step="2" value="3" class="small-input">                
+                </div>
+            </div>
         </div>
 
         <div class="input-column">
@@ -353,6 +407,19 @@
                 <span>:</span>
                 <input id="dailySteps" type="text" class="small-input">
             </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    
+                    <label for="distanceMethod">Distance Method</label>
+                    <span>:</span>
+                    <select id="distanceMethod" class="small-input">
+                        <option value="euclidean">Euclidean Distance</option>
+                        <option value="manhattan">Manhattan Distance</option>
+                        <option value="cosine">Cosine Similarity</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -368,16 +435,16 @@
             <span id="systolicValue">120</span>
         </div>
         <div class="diastolic-group">
-            <input id="diastolic" type="range" min="40" max="120" value="80" oninput="updateValue('diastolic', this.value)">
-            <span id="diastolicValue">80</span>
+            <input id="diastolic" type="range" min="40" max="120" value="60" oninput="updateValue('diastolic', this.value)">
+            <span id="diastolicValue">60</span>
         </div>
     </div>
 
-    <div class="centerr">
+    <div class="container1">
         <button class="btn" onclick="calculateResult()">CALCULATE</button>
-        <div class="new-box" id="new-box">RESULT : </div>
+        <div class="result" id="result">RESULT: <span id="resultText"></span></div>
+        <button class="btn" id="restartBtn" onclick="restart()" style="display: none;">RESTART</button>
     </div>
-    <div class="result" id="result">RESULT: </div>
 
     <script>
         const ageSelect = document.getElementById('age');
@@ -393,9 +460,64 @@
         }
 
         function calculateResult() {
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('result').innerText = 'Calculation completed!';
+            // Ambil nilai inputan, misalnya nilai dari slider
+            const exercise = document.getElementById('exercise').value;
+            const sleepTime = document.getElementById('sleepTime').value;
+            const heartRate = document.getElementById('heartRate').value;
+            const sleepQuality = document.getElementById('sleepQuality').value;
+
+            // Misalnya, kita kalkulasi hasil berdasarkan input
+            const result = 'NaN';  // Ganti dengan perhitungan yang sesuai
+
+            // Menampilkan kotak hasil
+            document.getElementById('result').style.display = 'block';  // Tampilkan kotak hasil
+            document.getElementById('result').textContent = `RESULT: ${result}`;  // Masukkan hasil ke dalam kotak
+
+            // Tampilkan tombol RESTART setelah hasil muncul
+            document.getElementById('restartBtn').style.display = 'inline-block';  // Tampilkan tombol restart
+
+            // Menyembunyikan kotak new-box
+            document.getElementById('new-box').style.display = 'none';
         }
+
+        if (distanceMethod === 'euclidean') {
+                console.log('Euclidean distance calculation for k = ' + k);
+            } else if (distanceMethod === 'manhattan') {
+                console.log('Manhattan distance calculation for k = ' + k);
+            } else if (distanceMethod === 'minkowski') {
+                console.log('Minkowski distance calculation for k = ' + k);
+            }
+
+            function restart() {
+    // Mengatur ulang elemen-elemen yang ada
+    document.getElementById('result').style.display = 'none';  // Sembunyikan kotak hasil
+    document.getElementById('result').textContent = 'RESULT: ';  // Reset teks hasil
+
+    // Menyembunyikan tombol RESTART
+    document.getElementById('restartBtn').style.display = 'none';
+
+    // Menampilkan kembali kotak new-box
+    document.getElementById('new-box').style.display = 'block';  // Atur tampilan awal
+
+    // Reset nilai inputan dan slider
+    document.getElementById('exercise').value = 0;
+    document.getElementById('sleepTime').value = 0;
+    document.getElementById('heartRate').value = 60;  // Default heart rate value
+    document.getElementById('sleepQuality').value = 0;
+
+    // Reset nilai slider systolic dan diastolic
+    document.getElementById('systolic').value = 120;
+    document.getElementById('diastolic').value = 60;
+
+    // Update nilai yang ditampilkan di sebelah slider
+    updateValue('exercise', 0);
+    updateValue('sleepTime', 0);
+    updateValue('heartRate', 60);
+    updateValue('sleepQuality', 0);
+    updateValue('systolic', 120);
+    updateValue('diastolic', 60);
+}
+
     </script>
 </body>
 </html>
