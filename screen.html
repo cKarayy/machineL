@@ -5,44 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SleepMonitor Pro</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Porter+Sans+Block&family=Post+No+Bills+Colombo:wght@700&display=swap');
+        /* Import Post No Bills Colombo ExtraBold Font */
+        @font-face {
+            font-family: 'Post No Bills Colombo';
+            src: url('./fonts/post-no-bills-colomboextrabold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
 
+        @font-face {
+            font-family: 'Rajdhani';
+            src: url('./fonts/rajdhani-bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'Calistoga';
+            src: url('./fonts/Calistoga-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Import Porter Sans Block Font */
+        @font-face {
+            font-family: 'Porter Sans Block';
+            src: url('./fonts/porter_sans_block/porter-sans-inline-block-webfont.woff2') format('woff2'),
+                 url('./fonts/porter_sans_block/porter-sans-inline-block-webfont.woff') format('woff'),
+                 url('./fonts/porter_sans_block/porter-sans-inline-block.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Protest-Strike';
+            src: url('./fonts/ProtestStrike-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html, body {
+            height: 100%; /* Memastikan html dan body mengisi seluruh layar */
+            margin: 0;
+            padding: 0;
+            font-family: 'Post No Bills Colombo', Arial, sans-serif; /* Font default */
+            display: flex; /* Flexbox untuk memastikan layout terorganisir vertikal */
+            flex-direction: column;
+            overflow-x: hidden; /* Hindari overflow horizontal */
+        }
+
+        /* Mengatur body agar latar belakang memenuhi seluruh layar */
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #002647, #04756F);
-            color: yellow;
+            background: linear-gradient(to bottom, #002647, #04756F, #002647); /* Latar belakang gradien */
+            background-size: cover; /* Memastikan latar belakang mengisi layar */
+            background-position: center center; /* Memastikan latar belakang terpusat */
+            min-height: 100vh; /* Memastikan body setidaknya setinggi layar */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            color: #FFED8C; /* Warna teks menjadi FFED8C */
             text-align: center;
             padding: 20px;
-            position: relative;
-            overflow: hidden;
-            margin: 0;
+        }
+
+        /* Perbesar ukuran font untuk Post No Bills Colombo */
+        body, .slider-group label, .slider-group span, .input-group label, .result {
+            font-size: 37px; /* Atur ukuran sesuai keinginan Anda */
         }
 
         /* Background Logo */
         body::before {
             content: "";
-            background: url('logoML.png') no-repeat center center;
-            background-size: 25%; /* Adjust size as needed */
-            opacity: 0.35; /* Transparansi 35% */
-            position: absolute;
+            background: url('./logoML.png') no-repeat center center;
+            background-size: 40%;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1; /* Behind the content */
+            height: 100%; /* Mengatur background logo agar mengisi layar */
+            z-index: -1;
+            opacity: 0.5;
         }
 
         h1 {
-            font-family: 'Porter Sans Block', sans-serif;
-            font-size: 64px;
+            font-family: 'Porter Sans Block', sans-serif; /* Font khusus untuk judul */
+            font-size: 46px;
             margin-bottom: 10px;
+            color: yellow; /* Warna "SLEEP MONITOR PRO" tetap kuning */
+            z-index: 10;
         }
 
+        /* Pindahkan garis bawah ke body */
         .title-line {
-            width: 50%;
+            width: 70%;
             height: 4px;
-            background: yellow;
+            background: yellow; /* Garis bawah tetap kuning */
             margin: 0 auto 20px;
+            position: absolute;
+            top: 120px; /* Menyesuaikan posisi garis dengan judul */
+            z-index: 1; /* Garis berada di atas logo */
         }
 
         .container {
@@ -50,9 +112,11 @@
             margin: 0 auto;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: transparent;
             display: flex;
             gap: 20px;
+            box-shadow: none;
+            margin-top: 20px; 
         }
 
         .slider-column, .input-column {
@@ -60,6 +124,7 @@
             flex-direction: column;
             gap: 15px;
             flex: 1;
+            margin-top: 5px;
         }
 
         .slider-group, .input-group {
@@ -69,12 +134,12 @@
             margin-bottom: 10px;
         }
 
-        .slider-group label, .slider-group span, .input-group label {
-            font-family: 'Post No Bills Colombo', sans-serif;
-            font-size: 20px;
-            display: inline-block;
-            text-align: left;
-            margin-right: 5px; 
+        .slider-group span:last-child {
+            color: white;
+            font-size: 42px;
+            font-weight: bold;
+            font-family: 'Rajdhani', sans-serif;
+            margin-right: 3px;
         }
 
         .slider-group input[type="range"], .input-group select, .input-group input {
@@ -83,10 +148,26 @@
         }
 
         .slider-group span {
-            font-family: 'Post No Bills Colombo', sans-serif;
             font-size: 20px;
             margin-left: 10px;
         }
+
+        .input-group select#age {
+    width: 5px; /* Perkecil lebar kotak */
+    height: 30px; /* Biarkan tinggi menyesuaikan konten */
+    font-size: 14px; /* Sesuaikan ukuran font */
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    text-align: center; /* Agar teks terlihat lebih rapi */
+}
+
+.input-group input#dailySteps {
+    width: 15%; /* Sesuaikan ukuran */
+    height: 50%; /* Biarkan tinggi menyesuaikan konten */
+    font-size: 16px; /* Ukuran font tetap */
+    border-radius: 10px;
+    background-color: #D9D9D9;
+}
 
         .input-group select, .input-group input {
             width: 70%; 
@@ -96,7 +177,7 @@
             background-color: #D9D9D9;
         }
 
-        .small-input{
+        .small-input {
             width: 70%; 
             height: 100%;
             border-radius: 10px;
@@ -108,24 +189,48 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            margin-top: 20px;
+            margin-top: 5px;
         }
 
+        .centerr {
+        display: flex; /* Tetap gunakan flex untuk tata letak horizontal */
+        justify-content: flex-start; /* Atur elemen ke kiri */
+        align-items: center; /* Vertikal sejajar */
+        gap: 20px; /* Jarak antar elemen */
+    }
         .systolic-group, .diastolic-group {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        .new-box {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: orange;
+            border: none;
+            color: black;
+            font-family: 'Calistoga';
+            font-weight: bold;
+            font-size:1.3rem ;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 80%;
+            height: 40%;
+    }
         .btn {
             margin-top: 20px;
             padding: 10px 20px;
             background: yellow;
             border: none;
             color: black;
+            font-family: 'Calistoga';
             font-weight: bold;
+            font-size:1.3rem ;
             border-radius: 5px;
             cursor: pointer;
+            width: 48%;
+            height: 70%;
         }
 
         .btn:hover {
@@ -141,22 +246,53 @@
             border: 2px solid orange;
             border-radius: 5px;
             display: none;
+            position: relative; /* Menjaga agar elemen result tidak mengganggu garis bawah */
+            z-index: 1; /* Pastikan result berada di bawah garis */
         }
 
         .radio-group {
             display: flex;
-            gap: 1px;
+            gap: 5px;
             margin-left: 5px;
+            align-items: center;
+        }
+
+        .radio-group input[type="radio"] {
+            width: 25px; /* Ukuran lingkaran horizontal */
+            height: 25px; /* Ukuran lingkaran vertikal */
+            accent-color: yellow; /* Warna lingkaran */
+            cursor: pointer; /* Menambahkan pointer saat mouse berada di atas */
+            vertical-align: middle;
+            margin-top: 2px;
         }
 
         .slider-group input[type="range"] {
             width: 100%; 
+            background: #FFED8C; /* Mengubah warna garis slider menjadi FFED8C */
         }
+
+        /* Style slider thumb (lingkaran slider) menjadi putih */
+        .slider-group input[type="range"]::-webkit-slider-thumb {
+            background: #FFED8C; /* Warna lingkaran slider menjadi putih */
+            border: 2px solid yellow;
+            border-radius: 50%;
+            height: 25px;
+            width: 25px;
+        }
+
+        /* Tambahan CSS untuk angka slider Systolic dan Diastolic */
+        .systolic-group span, .diastolic-group span {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 42px; /* Menyesuaikan ukuran font dengan angka slider lainnya */
+            color: white;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
     <h1>SLEEPMONITOR PRO</h1>
-    <div class="title-line"></div>
+    <div class="title-line"></div> <!-- Garis tetap ada di body -->
 
     <div class="container">
         <div class="slider-column">
@@ -193,17 +329,7 @@
             <div class="input-group">
                 <label for="age">Age</label>
                 <span>:</span>
-                <select id="age" class="small-input">
-                    <script>
-                        const ageSelect = document.getElementById('age');
-                        for (let i = 1; i <= 99; i++) {
-                            let option = document.createElement('option');
-                            option.value = i;
-                            option.textContent = i;
-                            ageSelect.appendChild(option);
-                        }
-                    </script>                    
-                </select>
+                <select id="age" class="small-input"></select>
             </div>
 
             <div class="input-group">
@@ -240,11 +366,29 @@
         </div>
     </div>
 
-    <button class="btn" onclick="calculateResult()">CALCULATE</button>
+    <div class="centerr">
+        <button class="btn" onclick="calculateResult()">CALCULATE</button>
+        <div class="new-box" id="new-box">RESULT : </div>
+    </div>
     <div class="result" id="result">RESULT: </div>
 
     <script>
+        const ageSelect = document.getElementById('age');
+        for (let i = 1; i <= 99; i++) {
+            let option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            ageSelect.appendChild(option);
+        }
 
+        function updateValue(id, value) {
+            document.getElementById(id + 'Value').innerText = value;
+        }
+
+        function calculateResult() {
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerText = 'Calculation completed!';
+        }
     </script>
 </body>
 </html>
