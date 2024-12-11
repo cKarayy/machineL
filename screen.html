@@ -4,351 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SleepMonitor Pro</title>
-    <style>
-        /* Import Post No Bills Colombo ExtraBold Font */
-        @font-face {
-            font-family: 'Post No Bills Colombo';
-            src: url('./fonts/post-no-bills-colomboextrabold.ttf') format('truetype');
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: 'Rajdhani';
-            src: url('./fonts/rajdhani-bold.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
-        @font-face {
-            font-family: 'Calistoga';
-            src: url('./fonts/Calistoga-Regular.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        /* Import Porter Sans Block Font */
-        @font-face {
-            font-family: 'Porter Sans Block';
-            src: url('./fonts/porter_sans_block/porter-sans-inline-block-webfont.woff2') format('woff2'),
-                 url('./fonts/porter_sans_block/porter-sans-inline-block-webfont.woff') format('woff'),
-                 url('./fonts/porter_sans_block/porter-sans-inline-block.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: 'Protest-Strike';
-            src: url('./fonts/ProtestStrike-Regular.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        html, body {
-            height: 100%; /* Memastikan html dan body mengisi seluruh layar */
-            margin: 0;
-            padding: 0;
-            font-family: 'Post No Bills Colombo', Arial, sans-serif; /* Font default */
-            display: flex; /* Flexbox untuk memastikan layout terorganisir vertikal */
-            flex-direction: column;
-            overflow-x: hidden; /* Hindari overflow horizontal */
-        }
-
-        /* Mengatur body agar latar belakang memenuhi seluruh layar */
-        body {
-            background: linear-gradient(to bottom, #002647, #04756F, #002647); /* Latar belakang gradien */
-            background-size: cover; /* Memastikan latar belakang mengisi layar */
-            background-position: center center; /* Memastikan latar belakang terpusat */
-            min-height: 100vh; /* Memastikan body setidaknya setinggi layar */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            color: #FFED8C; /* Warna teks menjadi FFED8C */
-            text-align: center;
-            padding: 20px;
-            overflow-x: hidden;
-            margin :0;
-            padding : 0;
-        }
-
-        .input-group {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin-bottom: 70px; /* Memberikan jarak antar input-group */
-        }
-
-        .input-row {
-            margin-top: 85px; /* Memberikan jarak antara dailySteps dan distanceMethod */
-        }
-
-        .input-group1 {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin-bottom: 20px; /* Memberikan jarak antar input-group */
-        }
-
-        /* Mengatur input dan select agar berada sejajar */
-        .input-group1 input, .input-group1 select {
-            width: 100px; /* Tentukan lebar kotak input dan select */
-            height: 30px; /* Menyesuaikan tinggi input */
-            font-size: 16px; /* Ukuran font */
-            border-radius: 10px;
-            background-color: #D9D9D9;
-        }
-
-        /* Perbesar ukuran font untuk Post No Bills Colombo */
-        body, .slider-group label, .slider-group span, .input-group label, .result {
-            font-size: 37px; /* Atur ukuran sesuai keinginan Anda */
-        }
-
-        /* Background Logo */
-        body::before {
-            content: "";
-            background: url('./logoML.png') no-repeat center center;
-            background-size: 40%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%; /* Mengatur background logo agar mengisi layar */
-            z-index: -1;
-            opacity: 0.5;
-            overflow: hidden
-        }
-
-        h1 {
-            font-family: 'Porter Sans Block', sans-serif; /* Font khusus untuk judul */
-            font-size: 46px;
-            margin-bottom: 10px;
-            color: yellow; /* Warna "SLEEP MONITOR PRO" tetap kuning */
-            z-index: 10;
-        }
-
-        /* Pindahkan garis bawah ke body */
-        .title-line {
-            width: 70%;
-            height: 4px;
-            background: yellow; /* Garis bawah tetap kuning */
-            margin: 0 auto 20px;
-            position: sticky;
-            top: 120px; /* Menyesuaikan posisi garis dengan judul */
-            z-index: 1; /* Garis berada di atas logo */
-        }
-
-        .container {
-            max-width: 1000px;
-            overflow: auto;
-            margin: 0 auto;
-            padding: 20px;
-            border-radius: 10px;
-            background: transparent;
-            display: flex;
-            gap: 20px;
-            box-shadow: none;
-            margin-top: 20px; 
-        }
-
-        .slider-column, .input-column {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            flex: 1;
-            margin-top: 5px;
-        }
-
-        .slider-group, .input-group {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .slider-group span:last-child {
-            color: white;
-            font-size: 42px;
-            font-weight: bold;
-            font-family: 'Rajdhani', sans-serif;
-            margin-right: 3px;
-        }
-
-        .slider-group input[type="range"], .input-group select, .input-group input {
-            flex: 1;
-            width: 70%;
-        }
-
-        .slider-group span {
-            font-size: 20px;
-            margin-left: 10px;
-        }
-
-        .input-group select#age {
-            width: 10px !important; /* Mengatur lebar menjadi 70px */
-            height: 30px; /* Biarkan tinggi menyesuaikan konten */
-            font-size: 14px; /* Ukuran font yang sesuai */
-            border-radius: 10px; /* Sudut membulat untuk estetik */
-            background-color: #D9D9D9; /* Warna latar belakang */
-            text-align: center; /* Agar teks terlihat lebih rapi */
-        }
-
-        .input-group input#dailySteps {
-            width: 15%; /* Sesuaikan ukuran */
-            height: 50%; /* Biarkan tinggi menyesuaikan konten */
-            font-size: 16px; /* Ukuran font tetap */
-            border-radius: 10px;
-            background-color: #D9D9D9;
-        }
-
-        .input-group select, .input-group input {
-            width: 70%; 
-            height: 100%;
-            font-size: 16px;
-            border-radius: 10px;
-            background-color: #D9D9D9;
-        }
-
-        .small-input {
-            width: 70%; 
-            height: 100%;
-            border-radius: 10px;
-            background-color: #D9D9D9;
-        }
-
-        .centered {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 5px;
-        }
-
-        .centerr {
-            display: flex; /* Tetap gunakan flex untuk tata letak horizontal */
-            align-items: center; /* Vertikal sejajar */
-            gap: 20px; /* Jarak antar elemen */
-            width: 500px; 
-            height: 100px; 
-        }
-
-        .systolic-group, .diastolic-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: 'Protest-Strike', sans-serif; /* Font khusus untuk judul */
-        }
-
-        .new-box {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: orange;
-            border: none;
-            color: black;
-            font-family: 'Calistoga';
-            font-weight: bold;
-            font-size:1.3rem ;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 80%;
-            height: 40%;
-        }
-
-        .container1 {
-            display: flex;
-            align-items: center; /* Vertikal sejajar */
-        }
-
-        .btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: yellow;
-            border: none;
-            color: black;
-            font-family: 'Calistoga';
-            font-weight: bold;
-            font-size:1.3rem ;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            height: 80%;
-        }
-
-        .btn:hover {
-            background: orange;
-        }
-
-        .result {
-    margin-top: 20px; /* Memberikan jarak antara kotak hasil dengan tombol RESTART */
-    margin-left: 30px;
-    margin-right: 15px;
-    padding: 10px;
-    background: white;
-    color: black;
-    font-size: 1.2rem;
-    border: 2px solid orange;
-    border-radius: 5px;
-    display: none;
-    position: relative; 
-    z-index: 1; 
-    white-space: nowrap;
-}
-
-#restartBtn {
-    margin-left: 15px;
-    margin-top: 30px; /* Jarak antara tombol RESTART dengan kotak hasil */
-    display: none;
-}
-
-        .radio-group {
-            display: flex;
-            gap: 5px;
-            margin-left: 5px;
-            align-items: center;
-        }
-
-        .radio-group input[type="radio"] {
-            width: 25px; /* Ukuran lingkaran horizontal */
-            height: 25px; /* Ukuran lingkaran vertikal */
-            accent-color: yellow; /* Warna lingkaran */
-            cursor: pointer; /* Menambahkan pointer saat mouse berada di atas */
-            vertical-align: middle;
-            margin-top: 2px;
-        }
-
-        .protest-strike-text {
-            font-family: 'Protest-Strike', sans-serif;
-            font-size: 30px; /* Sesuaikan ukuran font */
-            color: #FFED8C; /* Sesuaikan warna jika diperlukan */
-        }
-
-        .slider-group input[type="range"] {
-            width: 100%; 
-            background: #FFED8C; /* Mengubah warna garis slider menjadi FFED8C */
-        }
-
-        /* Style slider thumb (lingkaran slider) menjadi putih */
-        .slider-group input[type="range"]::-webkit-slider-thumb {
-            background: #FFED8C; /* Warna lingkaran slider menjadi putih */
-            border: 2px solid yellow;
-            border-radius: 50%;
-            height: 25px;
-            width: 25px;
-        }
-
-        /* Tambahan CSS untuk angka slider Systolic dan Diastolic */
-        .systolic-group span, .diastolic-group span {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 42px; /* Menyesuaikan ukuran font dengan angka slider lainnya */
-            color: white;
-            font-weight: bold;
-        }
-
-        #restartBtn {
-            display: none;
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>SLEEPMONITOR PRO</h1>
@@ -415,17 +71,24 @@
                 <input id="dailySteps" type="text" class="small-input">
             </div>
 
-            <div class="input-row">
-                <div class="input-group">
-                    
-                    <label for="distanceMethod">Distance Method</label>
-                    <span>:</span>
-                    <select id="distanceMethod" class="small-input">
-                        <option value="euclidean">Euclidean Distance</option>
-                        <option value="manhattan">Manhattan Distance</option>
-                        <option value="cosine">Cosine Similarity</option>
-                    </select>
-                </div>
+            <div class="input-group">
+                <label for="distanceMethod">BMI Category</label>
+                <span>:</span>
+                <select id="distanceMethod" class="small-input">
+                    <option value="euclidean">Overweight</option>
+                    <option value="manhattan">Normal</option>
+                    <option value="cosine">Obese</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="distanceMethod">Distance Method</label>
+                <span>:</span>
+                <select id="distanceMethod" class="small-input">
+                    <option value="euclidean">Euclidean Distance</option>
+                    <option value="manhattan">Manhattan Distance</option>
+                    <option value="cosine">minkowski Distance</option>
+                </select>
             </div>
         </div>
     </div>
@@ -458,7 +121,7 @@
         for (let i = 1; i <= 99; i++) {
             let option = document.createElement('option');
             option.value = i;
-            option.textContent = i;
+            option.textContent = i; 
             ageSelect.appendChild(option);
         }
 
@@ -495,111 +158,45 @@
                 console.log('Minkowski distance calculation for k = ' + k);
             }
 
-//             function restart() {
-//     // Mengatur ulang elemen-elemen yang ada
-//     document.getElementById('result').style.display = 'none';  // Sembunyikan kotak hasil
-//     document.getElementById('result').textContent = 'RESULT: ';  // Reset teks hasil
+            function restart() {
+                // Mengatur ulang elemen-elemen yang ada
+                document.getElementById('result').style.display = 'none';  // Sembunyikan kotak hasil
+                document.getElementById('result').textContent = 'RESULT: ';  // Reset teks hasil
 
-//     // Menyembunyikan tombol RESTART
-//     document.getElementById('restartBtn').style.display = 'none';
+                // Menyembunyikan tombol RESTART
+                document.getElementById('restartBtn').style.display = 'none';
 
-//     // Menampilkan kembali kotak new-box
-//     document.getElementById('new-box').style.display = 'block';  // Atur tampilan awal
+                // Menampilkan kembali kotak new-box
+                document.getElementById('new-box').style.display = 'block';  // Atur tampilan awal
 
-//     // Reset nilai inputan dan slider
-//     document.getElementById('exercise').value = 0;
-//     document.getElementById('sleepTime').value = 0;
-//     document.getElementById('heartRate').value = 60;  // Default heart rate value
-//     document.getElementById('sleepQuality').value = 0;
+                // Reset nilai inputan dan slider
+                document.getElementById('exercise').value = 0;
+                document.getElementById('sleepTime').value = 0;
+                document.getElementById('heartRate').value = 0;  // Default heart rate value
+                document.getElementById('sleepQuality').value = 0;
 
-//     // Reset nilai slider systolic dan diastolic
-//     document.getElementById('systolic').value = 120;
-//     document.getElementById('diastolic').value = 60;
+                // Reset nilai slider systolic dan diastolic
+                document.getElementById('systolic').value = 120;
+                document.getElementById('diastolic').value = 60;
 
-//     // Update nilai yang ditampilkan di sebelah slider
-//     updateValue('exercise', 0);
-//     updateValue('sleepTime', 0);
-//     updateValue('heartRate', 60);
-//     updateValue('sleepQuality', 0);
-//     updateValue('systolic', 120);
-//     updateValue('diastolic', 60);
-// }
+                // Update nilai yang ditampilkan di sebelah slider
+                updateValue('exercise', 0);
+                updateValue('sleepTime', 0);
+                updateValue('heartRate', 0);
+                updateValue('sleepQuality', 0);
+                updateValue('systolic', 120);
+                updateValue('diastolic', 60);
 
-function restart() {
-    // Mengatur ulang elemen-elemen yang ada
-    document.getElementById('result').style.display = 'none';  // Sembunyikan kotak hasil
-    document.getElementById('result').textContent = 'RESULT: ';  // Reset teks hasil
-
-    // Menyembunyikan tombol RESTART
-    document.getElementById('restartBtn').style.display = 'none';
-
-    // Menampilkan kembali kotak new-box
-    document.getElementById('new-box').style.display = 'block';  // Atur tampilan awal
-
-    // Reset nilai inputan dan slider ke nilai default
-    document.getElementById('exercise').value = 0;
-    document.getElementById('sleepTime').value = 0;
-    document.getElementById('heartRate').value = 60;  // Default heart rate value
-    document.getElementById('sleepQuality').value = 0;
-
-    // Reset nilai slider systolic dan diastolic ke nilai default
-    document.getElementById('systolic').value = 120;
-    document.getElementById('diastolic').value = 60;
-
-    // Update nilai yang ditampilkan di sebelah slider
-    updateValue('exercise', 0);
-    updateValue('sleepTime', 0);
-    updateValue('heartRate', 60);
-    updateValue('sleepQuality', 0);
-    updateValue('systolic', 120);
-    updateValue('diastolic', 60);
-
-    // Reset nilai inputan text dan select
-    document.getElementById('dailySteps').value = '';
-    document.getElementById('kValue').value = 3;
-    document.getElementById('age').value = '';  // Jika ingin mengatur ulang pilihan umur
-    document.getElementById('distanceMethod').value = 'euclidean';  // Reset ke pilihan default
-    document.querySelector('input[name="gender"]:checked').checked = false;  // Menghapus pilihan gender
-}
+                // Memastikan slider diperbarui secara visual
+                document.getElementById('exercise').dispatchEvent(new Event('input'));
+                document.getElementById('sleepTime').dispatchEvent(new Event('input'));
+                document.getElementById('heartRate').dispatchEvent(new Event('input'));
+                document.getElementById('sleepQuality').dispatchEvent(new Event('input'));
+                document.getElementById('systolic').dispatchEvent(new Event('input'));
+                document.getElementById('diastolic').dispatchEvent(new Event('input'));
+            }
 
 
-
-function updateValue(sliderId, value) {
-    var slider = document.getElementById(sliderId);
-    var display = document.getElementById(sliderId + "-display");
-
-    if (display) {
-        display.textContent = value;  // Update teks yang ditampilkan di samping slider
-    }
-
-    // Pastikan slider diperbarui
-    slider.value = value;
-    
-    // Jika ada elemen lain yang harus diperbarui (misal, tampilan angka di samping slider)
-    if (sliderId === 'exercise') {
-        console.log("Exercise slider reset to:", slider.value);
-    }
-}
-
-// Pastikan event listener untuk slider tetap bekerja
-document.getElementById('exercise').addEventListener('input', function() {
-    updateValue('exercise', this.value);
-});
-document.getElementById('sleepTime').addEventListener('input', function() {
-    updateValue('sleepTime', this.value);
-});
-document.getElementById('heartRate').addEventListener('input', function() {
-    updateValue('heartRate', this.value);
-});
-document.getElementById('sleepQuality').addEventListener('input', function() {
-    updateValue('sleepQuality', this.value);
-});
-document.getElementById('systolic').addEventListener('input', function() {
-    updateValue('systolic', this.value);
-});
-document.getElementById('diastolic').addEventListener('input', function() {
-    updateValue('diastolic', this.value);
-});
     </script>
 </body>
 </html>
