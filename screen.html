@@ -202,6 +202,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            font-family: 'Protest-Strike', sans-serif; /* Font khusus untuk judul */
         }
 
         .new-box {
@@ -264,6 +265,12 @@
             cursor: pointer; /* Menambahkan pointer saat mouse berada di atas */
             vertical-align: middle;
             margin-top: 2px;
+        }
+
+        .protest-strike-text {
+            font-family: 'Protest-Strike', sans-serif;
+            font-size: 30px; /* Sesuaikan ukuran font */
+            color: #FFED8C; /* Sesuaikan warna jika diperlukan */
         }
 
         .slider-group input[type="range"] {
@@ -350,9 +357,9 @@
     </div>
 
     <div class="centered">
-        <label for="systolic">Systolic</label>
-        <span>:</span>
-        <label for="diastolic">Diastolic</label>
+        <label for="systolic" class="protest-strike-text">Systolic</label>
+        <span class="protest-strike-text">:</span>
+        <label for="diastolic" class="protest-strike-text">Diastolic</label>
     </div>
 
     <div class="centered">
