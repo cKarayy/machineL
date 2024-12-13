@@ -158,43 +158,45 @@
                 console.log('Minkowski distance calculation for k = ' + k);
             }
 
-            function restart() {
-                // Mengatur ulang elemen-elemen yang ada
-                document.getElementById('result').style.display = 'none';  // Sembunyikan kotak hasil
-                document.getElementById('result').textContent = 'RESULT: ';  // Reset teks hasil
+            function updateValue(id, value) {
+        document.getElementById(id + 'Value').innerText = value;
+    }
 
-                // Menyembunyikan tombol RESTART
-                document.getElementById('restartBtn').style.display = 'none';
+    function restart() {
+        // Reset slider values and update their displayed values
+        document.getElementById('exercise').value = 0;
+        document.getElementById('sleepTime').value = 0;
+        document.getElementById('heartRate').value = 60; // Default value for heart rate
+        document.getElementById('sleepQuality').value = 0;
+        document.getElementById('systolic').value = 120; // Default systolic value
+        document.getElementById('diastolic').value = 60; // Default diastolic value
 
-                // Menampilkan kembali kotak new-box
-                document.getElementById('new-box').style.display = 'block';  // Atur tampilan awal
+        updateValue('exercise', 0);
+        updateValue('sleepTime', 0);
+        updateValue('heartRate', 60);
+        updateValue('sleepQuality', 0);
+        updateValue('systolic', 120);
+        updateValue('diastolic', 60);
 
-                // Reset nilai inputan dan slider
-                document.getElementById('exercise').value = 0;
-                document.getElementById('sleepTime').value = 0;
-                document.getElementById('heartRate').value = 0;  // Default heart rate value
-                document.getElementById('sleepQuality').value = 0;
+        // Reset number and text inputs
+        document.getElementById('kValue').value = 3; // Default value for k
+        document.getElementById('dailySteps').value = '';
 
-                // Reset nilai slider systolic dan diastolic
-                document.getElementById('systolic').value = 120;
-                document.getElementById('diastolic').value = 60;
+        // Reset select inputs
+        document.getElementById('age').value = 1; // Default age to 1
+        document.getElementById('distanceMethod').value = 'euclidean'; // Default distance method
 
-                // Update nilai yang ditampilkan di sebelah slider
-                updateValue('exercise', 0);
-                updateValue('sleepTime', 0);
-                updateValue('heartRate', 0);
-                updateValue('sleepQuality', 0);
-                updateValue('systolic', 120);
-                updateValue('diastolic', 60);
+        // Reset radio buttons
+        const genderRadios = document.getElementsByName('gender');
+        genderRadios.forEach(radio => radio.checked = false); // Uncheck all gender radios
 
-                // Memastikan slider diperbarui secara visual
-                document.getElementById('exercise').dispatchEvent(new Event('input'));
-                document.getElementById('sleepTime').dispatchEvent(new Event('input'));
-                document.getElementById('heartRate').dispatchEvent(new Event('input'));
-                document.getElementById('sleepQuality').dispatchEvent(new Event('input'));
-                document.getElementById('systolic').dispatchEvent(new Event('input'));
-                document.getElementById('diastolic').dispatchEvent(new Event('input'));
-            }
+        // Hide result and reset text
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('resultText').innerText = '';
+
+        // Hide restart button
+        document.getElementById('restartBtn').style.display = 'none';
+    }
 
 
     </script>
